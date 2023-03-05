@@ -14,9 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('route_stop', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('route_id')->constrained();
-            $table->foreignId('stop_id')->constrained();
+            $table->unsignedBigInteger('stop_id');
+            $table->foreign('stop_id')->references('id')->on('stops');
+
+            $table->unsignedBigInteger('route_id');
+            $table->foreign('route_id')->references('id')->on('routes');
+
             $table->unsignedInteger('sort_order');
         });
     }
